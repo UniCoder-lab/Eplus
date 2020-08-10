@@ -1,0 +1,872 @@
+@persist [ O E ]:entity
+@persist [ HOLO_INDEX LIB_ACTIVE CODE_BINAR CODE_UNBINAR]:table [ Iplus ]:number
+
+if ( first() )
+{
+    
+    O = owner() E = entity()
+
+
+    function void addlib( Var:string ){
+        
+        if( !LIB_ACTIVE[ Var, string ]  ){
+             LIB_ACTIVE[ Var, string ] = "Active" 
+        }else{
+            print( "Данная библиотека уже существует" )
+        }
+    }    
+    
+    function table activelib(){
+      return LIB_ACTIVE 
+    }
+    
+    function table listLibrary(){
+       function number true(){ return 1 } 
+        
+       local Lib = table()
+    
+       Lib[ "mes.lib", number ]         = true()
+       Lib[ "find.lib", number ]        = true()
+       Lib[ "math.lib", number ]        = true()
+       Lib[ "rand.lib", number ]        = true()
+       Lib[ "holo.lib", number ]        = true()
+       Lib[ "http.lib", number ]        = true()
+       Lib[ "data.lib", number ]        = true()
+       Lib[ "filesql.lib", number ]     = true()
+       Lib[ "advanced.lib", number ]    = true()
+       Lib[ "colorama.lib", number ]    = true()
+       Lib[ "unibin.lib", number ]      = true()
+       Lib[ "e2.safe", number ]         = true()
+    
+       return Lib
+    }
+    
+    function array char( Content:string ){
+        if( Content:length() > 1 ){
+            return Content:explode("") 
+        } else { 
+            return array(Content) 
+        }
+    }
+    
+    function number init( Number ){
+        local Spr = Number:toString()
+        if( Spr:find( "." ) ){ error( Number:toString() ) }
+        return Number
+   }
+
+   function number float( Number ){
+      local Spr = Number:toString()
+      if( !Spr:find( "." ) ){
+        return Number + 0.001
+      }else{
+        return Number
+      }
+    }
+    
+    function number main( St:string ){
+      
+        if( St == "array:arg <string>" ){
+            return tickInterval()   
+        }else{ error( "no Argument" ) }
+       
+    }
+
+                    
+
+    function include( Library:string ){
+            
+            function void addinclude( NameIncl:string ){
+                if ( activelib()[ NameIncl, string ] != "Active" ){
+                        include( NameIncl )      
+                }
+            }    
+            
+            switch( Library )
+            {
+                case "mes.lib",
+                    addlib( Library )
+                     function void message( String:string ){
+                        print( String ) }
+                        break
+                        
+                case "find.lib",
+                addlib( Library )
+                    function void findIcnludeClass( Ar:array ){
+                        for( I = 1, Ar:count() ){
+                         findIncludeClass( Ar[I, string] )}
+                    }
+                    
+                    function void findIcnludeModel( Ar:array ){
+                        for( I = 1, Ar:count() ){
+                         findIncludeModel( Ar[I, string] ) }
+                    }
+                    break
+                    
+                case "rand.lib",
+                addlib( Library )
+                    RAND_SEED = 1
+                    RAND_MAX = 32767
+                        function number rand() {
+                            RAND_SEED = ( (RAND_SEED * 1103515245) + 12345) && 0x7FFFFFFF
+                            return (RAND_SEED / 65536) % RAND_MAX / RAND_MAX
+                        }
+                        
+                        function void srand(Seed:number) {
+                            RAND_SEED = Seed
+                        }
+                    break 
+                
+                case "ranger.lib",
+                        function number ranger:hitAir(){
+                            if( !This:hit() ){
+                              return 1 
+                            }else{ 
+                              return 0  
+                            } 
+                        }
+                    break
+                    
+                    
+                case "unibin.lib",
+                addlib( Library )
+                    #--------Number--------
+                    CODE_BINAR[ "0", string ] = "0x0"
+                    CODE_BINAR[ "1", string ] = "0x1"
+                    CODE_BINAR[ "2", string ] = "0x2"
+                    CODE_BINAR[ "3", string ] = "0x3"
+                    CODE_BINAR[ "4", string ] = "0x4"
+                    CODE_BINAR[ "5", string ] = "0x5"
+                    CODE_BINAR[ "6", string ] = "0x6"
+                    CODE_BINAR[ "7", string ] = "0x7"
+                    CODE_BINAR[ "8", string ] = "0x8"
+                    CODE_BINAR[ "9", string ] = "0x9"
+                    #--------symbol--------
+                    CODE_BINAR[ "a", string ] = "0x01"
+                    CODE_BINAR[ "b", string ] = "0x02"
+                    CODE_BINAR[ "c", string ] = "0x03"
+                    CODE_BINAR[ "d", string ] = "0x04"
+                    CODE_BINAR[ "e", string ] = "0x05"
+                    CODE_BINAR[ "f", string ] = "0x06"
+                    CODE_BINAR[ "g", string ] = "0x07"
+                    CODE_BINAR[ "h", string ] = "0x08"
+                    CODE_BINAR[ "i", string ] = "0x09"
+                    CODE_BINAR[ "j", string ] = "0x10"
+                    CODE_BINAR[ "k", string ] = "0x11"
+                    CODE_BINAR[ "l", string ] = "0x12"
+                    CODE_BINAR[ "m", string ] = "0x13"
+                    CODE_BINAR[ "n", string ] = "0x14"
+                    CODE_BINAR[ "o", string ] = "0x15"
+                    CODE_BINAR[ "p", string ] = "0x16"
+                    CODE_BINAR[ "q", string ] = "0x17"
+                    CODE_BINAR[ "r", string ] = "0x18"
+                    CODE_BINAR[ "s", string ] = "0x19"
+                    CODE_BINAR[ "t", string ] = "0x20"
+                    CODE_BINAR[ "u", string ] = "0x21"
+                    CODE_BINAR[ "v", string ] = "0x22"
+                    CODE_BINAR[ "w", string ] = "0x23"
+                    CODE_BINAR[ "x", string ] = "0x24"
+                    CODE_BINAR[ "y", string ] = "0x25"
+                    CODE_BINAR[ "z", string ] = "0x26"
+                    
+                    CODE_BINAR[ "A", string ] = "4x1"
+                    CODE_BINAR[ "B", string ] = "4x2"
+                    CODE_BINAR[ "C", string ] = "4x3"
+                    CODE_BINAR[ "D", string ] = "4x4"
+                    CODE_BINAR[ "E", string ] = "4x5"
+                    CODE_BINAR[ "F", string ] = "4x6"
+                    CODE_BINAR[ "G", string ] = "4x7"
+                    CODE_BINAR[ "H", string ] = "4x8"
+                    CODE_BINAR[ "I", string ] = "4x9"
+                    CODE_BINAR[ "J", string ] = "5x1"
+                    CODE_BINAR[ "K", string ] = "5x2"
+                    CODE_BINAR[ "L", string ] = "5x3"
+                    CODE_BINAR[ "M", string ] = "5x4"
+                    CODE_BINAR[ "N", string ] = "5x5"
+                    CODE_BINAR[ "O", string ] = "5x6"
+                    CODE_BINAR[ "P", string ] = "5x7"
+                    CODE_BINAR[ "Q", string ] = "5x8"
+                    CODE_BINAR[ "R", string ] = "5x9"
+                    CODE_BINAR[ "S", string ] = "6x1"
+                    CODE_BINAR[ "T", string ] = "6x2"
+                    CODE_BINAR[ "U", string ] = "6x3"
+                    CODE_BINAR[ "V", string ] = "6x4"
+                    CODE_BINAR[ "W", string ] = "6x5"
+                    CODE_BINAR[ "X", string ] = "6x6"
+                    CODE_BINAR[ "Y", string ] = "6x7"
+                    CODE_BINAR[ "Z", string ] = "6x8"
+                    
+                    
+                    CODE_BINAR[ "!", string ] = "1x1"
+                    CODE_BINAR[ "@", string ] = "1x2"
+                    CODE_BINAR[ "#", string ] = "1x3"
+                    CODE_BINAR[ "$", string ] = "1x4"
+                    CODE_BINAR[ "%", string ] = "1x5"
+                    CODE_BINAR[ "^", string ] = "1x6"
+                    CODE_BINAR[ "&", string ] = "1x7"
+                    CODE_BINAR[ "*", string ] = "1x8"
+                    CODE_BINAR[ "(", string ] = "1x9"
+                    CODE_BINAR[ ")", string ] = "2x1"
+                    CODE_BINAR[ "-", string ] = "2x2"
+                    CODE_BINAR[ "+", string ] = "2x3"
+                    CODE_BINAR[ "=", string ] = "2x4"
+                    CODE_BINAR[ "_", string ] = "2x5"
+                    CODE_BINAR[ "~", string ] = "2x6"
+                    CODE_BINAR[ "[", string ] = "2x7"
+                    CODE_BINAR[ "]", string ] = "2x8"
+                    CODE_BINAR[ "{", string ] = "2x9"
+                    CODE_BINAR[ "}", string ] = "3x1"
+                    CODE_BINAR[ "\"", string ] = "3x2"
+                    CODE_BINAR[ ";", string ] = "3x3"
+                    CODE_BINAR[ ":", string ] = "3x4"
+                    CODE_BINAR[ "?", string ] = "3x5"
+                    CODE_BINAR[ ",", string ] = "3x6"
+                    CODE_BINAR[ "'", string ] = "3x7"
+                    CODE_BINAR[ " ", string ] = "4x02"
+                    
+                    
+                    CODE_UNBINAR[ "0x01", string ] = "a"
+                    CODE_UNBINAR[ "0x02", string ] = "b"
+                    CODE_UNBINAR[ "0x03", string ] = "c"
+                    CODE_UNBINAR[ "0x04", string ] = "d"
+                    CODE_UNBINAR[ "0x05", string ] = "e"
+                    CODE_UNBINAR[ "0x06", string ] = "f"
+                    CODE_UNBINAR[ "0x07", string ] = "g"
+                    CODE_UNBINAR[ "0x08", string ] = "h"
+                    CODE_UNBINAR[ "0x09", string ] = "i"
+                    CODE_UNBINAR[ "0x10", string ] = "j"
+                    CODE_UNBINAR[ "0x11", string ] = "k"
+                    CODE_UNBINAR[ "0x12", string ] = "l"
+                    CODE_UNBINAR[ "0x13", string ] = "m"
+                    CODE_UNBINAR[ "0x14", string ] = "n"
+                    CODE_UNBINAR[ "0x15", string ] = "o"
+                    CODE_UNBINAR[ "0x16", string ] = "p"
+                    CODE_UNBINAR[ "0x17", string ] = "q"
+                    CODE_UNBINAR[ "0x18", string ] = "r"
+                    CODE_UNBINAR[ "0x19", string ] = "s"
+                    CODE_UNBINAR[ "0x20", string ] = "t"
+                    CODE_UNBINAR[ "0x21", string ] = "u"
+                    CODE_UNBINAR[ "0x22", string ] = "v"
+                    CODE_UNBINAR[ "0x23", string ] = "w"
+                    CODE_UNBINAR[ "0x24", string ] = "x"
+                    CODE_UNBINAR[ "0x25", string ] = "y"
+                    CODE_UNBINAR[ "0x26", string ] = "z"
+                    
+                    CODE_UNBINAR[ "4x1", string ] = "A"
+                    CODE_UNBINAR[ "4x2", string ] = "B"
+                    CODE_UNBINAR[ "4x3", string ] = "C"
+                    CODE_UNBINAR[ "4x4", string ] = "D"
+                    CODE_UNBINAR[ "4x5", string ] = "E"
+                    CODE_UNBINAR[ "4x6", string ] = "F"
+                    CODE_UNBINAR[ "4x7", string ] = "G"
+                    CODE_UNBINAR[ "4x8", string ] = "H"
+                    CODE_UNBINAR[ "4x9", string ] = "I"
+                    CODE_UNBINAR[ "5x1", string ] = "J"
+                    CODE_UNBINAR[ "5x2", string ] = "K"
+                    CODE_UNBINAR[ "5x3", string ] = "L"
+                    CODE_UNBINAR[ "5x4", string ] = "M"
+                    CODE_UNBINAR[ "5x5", string ] = "N"
+                    CODE_UNBINAR[ "5x6", string ] = "O"
+                    CODE_UNBINAR[ "5x7", string ] = "P"
+                    CODE_UNBINAR[ "5x8", string ] = "Q"
+                    CODE_UNBINAR[ "5x9", string ] = "R"
+                    CODE_UNBINAR[ "6x1", string ] = "S"
+                    CODE_UNBINAR[ "6x2", string ] = "T"
+                    CODE_UNBINAR[ "6x3", string ] = "U"
+                    CODE_UNBINAR[ "6x4", string ] = "V"
+                    CODE_UNBINAR[ "6x5", string ] = "W"
+                    CODE_UNBINAR[ "6x6", string ] = "X"
+                    CODE_UNBINAR[ "6x7", string ] = "Y"
+                    CODE_UNBINAR[ "6x8", string ] = "Z"
+                    
+                    
+                    CODE_UNBINAR[ "1x1", string ] = "!"
+                    CODE_UNBINAR[ "1x2", string ] = "@"
+                    CODE_UNBINAR[ "1x3", string ] = "#"
+                    CODE_UNBINAR[ "1x4", string ] = "$"
+                    CODE_UNBINAR[ "1x5", string ] = "%"
+                    CODE_UNBINAR[ "1x6", string ] = "^"
+                    CODE_UNBINAR[ "1x7", string ] = "&"
+                    CODE_UNBINAR[ "1x8", string ] = "*"
+                    CODE_UNBINAR[ "1x9", string ] = "("
+                    CODE_UNBINAR[ "2x1", string ] = ")"
+                    CODE_UNBINAR[ "2x2", string ] = "-"
+                    CODE_UNBINAR[ "2x3", string ] = "+"
+                    CODE_UNBINAR[ "2x4", string ] = "="
+                    CODE_UNBINAR[ "2x5", string ] = "_"
+                    CODE_UNBINAR[ "2x6", string ] = "~"
+                    CODE_UNBINAR[ "2x7", string ] = "["
+                    CODE_UNBINAR[ "2x8", string ] = "]"
+                    CODE_UNBINAR[ "2x9", string ] = "{"
+                    CODE_UNBINAR[ "3x1", string ] = "}"
+                    CODE_UNBINAR[ "2x7", string ] = "["
+                    CODE_UNBINAR[ "2x8", string ] = "]"
+                    CODE_UNBINAR[ "2x9", string ] = "{"
+                    CODE_UNBINAR[ "3x1", string ] = "}"
+                    CODE_UNBINAR[ "3x2", string ] = "\""
+                    CODE_UNBINAR[ "3x3", string ] = ";"
+                    CODE_UNBINAR[ "3x4", string ] = ":"
+                    CODE_UNBINAR[ "3x5", string ] = "?"
+                    CODE_UNBINAR[ "3x6", string ] = ","
+                    CODE_UNBINAR[ "4x02", string ] = " "
+                    CODE_UNBINAR[ "3x7", string ] = "'"
+
+                    CODE_UNBINAR[ "0x0", string ] = "0"
+                    CODE_UNBINAR[ "0x1", string ] = "1"
+                    CODE_UNBINAR[ "0x2", string ] = "2"
+                    CODE_UNBINAR[ "0x3", string ] = "3"
+                    CODE_UNBINAR[ "0x4", string ] = "4"
+                    CODE_UNBINAR[ "0x5", string ] = "5"
+                    CODE_UNBINAR[ "0x6", string ] = "6"
+                    CODE_UNBINAR[ "0x7", string ] = "7"
+                    CODE_UNBINAR[ "0x8", string ] = "8"
+                    CODE_UNBINAR[ "0x9", string ] = "9"
+                    
+                    #--------Functions--------
+                    
+                    function string binEncode( Symbol:string )
+                    {
+                            local Res = ""
+                            local Data = Symbol:explode(" \n")
+                         
+                            for(I = 1, Data:count() ) {
+                                Res += CODE_UNBINAR[Data:string(I),string]
+                            }
+                            
+                            return Res
+                    }
+                    
+                    
+                    function string binDecode( Symbol:string )
+                    {
+                            local Res = ""
+                            local Data = Symbol:explode( "" )
+                    
+                            for(I = 1, Data:count() ){
+                                Res += CODE_BINAR[Data:string(I),string] + " \n"
+                            }
+                            
+                            return Res
+                    }
+                    
+                    function table getTable( Choice )
+                    { 
+                        switch ( Choice )
+                        {
+                            case 1,
+                                return CODE_BINAR
+                                break
+                            case 2,
+                                return CODE_UNBINAR
+                                break
+                            default,
+                                print( "[1 = CODE_BINAR] | [2 = CODE_UNBINAR]" )
+                                return table()
+                                break
+                        }   
+                }
+                    break        
+                
+    
+                case "holo.lib",
+                addlib( Library )
+                        function number localId( String:string ){
+                           if( !HOLO_INDEX[ String, number ] ){
+                              Iplus++
+                              HOLO_INDEX[ String, number ] = Iplus
+                           }
+                        
+                           return  HOLO_INDEX[ String, number ]
+                        }
+                    
+                        function number getId( String:string ){
+                            return HOLO_INDEX[ String, number ]
+                        }
+                    
+                        function void removeId( String:string ){
+                                HOLO_INDEX:removeString( getId( String ) )
+                        }  
+                    
+                        function void holoCreate( Index:string ){
+                            holoCreate( localId( Index ) )
+                        }
+                        
+                        function holoCreate(Name:string, Pos:vector, Scale:vector){
+                            holoCreate(localId(Name), Pos)
+                            holoScale(getId(Name), Scale)
+                        }
+                        
+                        function holoParent(Name:string, ParentTo:entity){
+                            holoParent(getId(Name), ParentTo)
+                        }
+                        
+                        function void holoModel( Index:string, Model:string ){
+                            holoModel( getId( Index ), Model )   
+                        }
+                        
+                        function entity holoEntity( Index:string ){
+                            return holoEntity( getId( Index ) )   
+                        }
+    
+                        function entity holoEntity(){
+                            return holoEntity( HOLO_INDEX:count() )   
+                        }    
+                    
+                        function void holoModel( Model:string ){
+                            holoModel( HOLO_INDEX:count(), Model )   
+                        }
+                        
+                        function vector holoPos( Index:string, Pos:vector ){
+                        local CallBack = holoEntity( getId( Index ) ):pos()
+                            holoPos( getId( Index ), Pos )
+                            return CallBack
+                        }
+    
+                        function vector holoPos( Index:string, Pos:vector ){
+                        local CallBack = holoEntity( HOLO_INDEX:count() ):pos()
+                            holoPos( HOLO_INDEX:count(), Pos )
+                            return CallBack
+                        }        
+    
+                        function void holoDelete( Index:string ){
+                            holoDelete( getId( Index ) )
+                        }
+    
+                        function void holoDeleteKD( Time:number ){
+                           holoEntity( HOLO_INDEX:count() ):remove( Time )
+                        } 
+    
+                        function void holoDelete(){
+                            holoDelete( HOLO_INDEX:count() )
+                        }     
+                        
+                        function void holoDeleteKD( Index:string, Time:number ){
+                           holoEntity( getId( Index ) ):remove( Time )
+                        } 
+                        
+                        function void holoAlpha( Index:string, Alph:number ){
+                           holoAlpha( getId( Index ), Alph )   
+                        }
+                        
+                        function void holoShadow( Index:string, Status:number ){
+                            holoShadow( getId( Index ), Status )   
+                        }        
+                        
+                        function void holoDisableShading( Index:string, Status:number ){
+                            holoDisableShading( getId( Index ), Status )   
+                        }
+                        
+                        function void holoSkin( Index:string, Stat:number ){
+                            holoSkin( getId( Index ), Stat )   
+                        }
+                        
+                        function void holoAng( Index:string, Ang:angle){
+                            holoAng( getId( Index ), Ang )   
+                        }
+                        
+                        function void holoAnim( [Index Anim]:string ){
+                            holoAnim( getId( Index ), Anim )   
+                        }
+                        
+                        function void holoAnim( [Index Anim]:string, Time:number ){
+                            holoAnim( getId( Index ), Anim, Time )   
+                        }
+                        
+                        function void holoColor( Index:string, Color:vector ){
+                            holoColor( getId( Index ), Color )   
+                        }
+                        
+                        function void holoScale( Index:string, Size:vector ){
+                            holoScale( getId( Index ), Size )
+                        }
+                        
+                        function void holoVisible(Index:string,Ply:entity,Visiable:number){
+                            holoVisible( getId( Index ), Ply, Visiable )
+                        }
+
+                        function void holoVisible(Index:string,Ply:array,Visiable:number){
+                            holoVisible( getId( Index ), Ply, Visiable )
+                        }
+                        
+                        function void holoClipEnabled(Index:string, Enable){
+                            holoClipEnabled( getId( Index ), Enable )
+                        }
+                        
+                        function void holoClipEnabled(Index:string, [Clipidx Enable]:number){
+                            holoClipEnabled( getId( Index ), Clipidx,Enable )
+                        }
+                        
+                        function void holoClip( Index:string, Clipidx, [Origin Normal]:vector, Ent:entity ){
+                            holoClip(getId( Index ), Clipidx, Origin, Normal, Ent)   
+                        }
+
+                        function void holoClip( Index:string, [Origin Normal]:vector, Gl ){
+                            holoClip(getId( Index ), Origin, Normal, Gl)           
+                        }
+                        
+                        function void holoClip( Index:string, [Origin Normal]:vector, Ent:entity ){
+                            holoClip(getId( Index ),Origin, Normal, Ent)   
+                        }
+                        
+                        function number holoAnimLength(Index:string){
+                            return holoAnimLength(getId( Index ))
+                        }
+                        
+                        function number holoAnimNum([Index Animation]:string){
+                            return holoAnimNum(getId( Index ), Animation)
+                        }
+                        #ifdef znbIsHoloSolid( number ) 
+                            function number znbIsHoloSolid( Index:string ){
+                                return znbIsHoloSolid(getId(Index))   
+                            }
+                        #endif
+                        
+                        #ifdef znbHoloSolid( number )
+                            function void znbHoloSolid( Index:string ){
+                                znbHoloSolid( getId(Index) )   
+                            }
+                        #endif
+                        
+                        function void holoSolid(Index:number){ holoEntity(Index):setKeyValue("solid", 6) }
+                        function void holoSolid(Index:string){ holoEntity(getId(Index) ):setKeyValue("solid", 6) }
+                    break
+                
+                case "math.lib",
+                addlib( Library )
+                
+                    function number pow( [Num Num2]:number ) { return Num / 100 * Num2 }
+                    
+                    function number number:min( Max:number ){
+                      return This > Max ? Max : This   
+                    }
+                
+                    function number number:max( Max:number ){
+                      return This < Max ? Max : This   
+                    }
+                     
+                    function number vector2:max(){ return max(This:x(), This:y()) }
+                    function number vector:max(){ return max(This:x(), This:y(), This:z()) }
+                    function number vector4:max(){ return max(This:x(), This:y(), This:z(), This:w()) }
+                            
+                    function number max(Vec2:vector2){ return max(Vec2:x(), Vec2:y()) }
+                    function number max(Vec:vector){ return max(Vec:x(), Vec:y(), Vec:z()) }
+                    function number max(Vec4:vector4){ return max(Vec4:x(), Vec4:y(), Vec4:z(), Vec4:w()) }
+                    
+                    function number number:abs(){ return abs( This ) }
+                    
+                    function vector entity:vec([X Y Z]:number) { return This:toWorld( vec(X,Y,Z) ) }
+                    function angle entity:ang([X Y Z]:number) { return This:toWorld( ang(X,Y,Z) ) }
+                    
+                    function vector entity:pos( [X Y Z]:number ){
+                        return This:pos() + vec( X,Y,Z )   
+                    }
+                    
+                    #ifdef ops()
+                        function number getOps(){ return int(ops()) }
+                        function number getUs(){ return int(cpuUsage()*1e6) }
+                    #endif
+                    
+                    function printScreen(Text:string){ print(4,Text) }
+                    function printScreen(Text){ print(4,Text:toString()) } 
+                    
+                    function string entity:keyPressed(){
+                        runOnKeys(This, 1)
+                        return keyClkPressed()
+                    }
+                    
+                    function vector size( [X Y Z]:number ){
+                        return vec( X, Y, Z )
+                    }
+                    
+                    function vector size( [X]:number ){
+                        return vec( X )
+                    }
+                    
+                    function number angle:x(){ return This:pitch() }
+                    function number angle:y(){ return This:yaw()   }
+                    function number angle:z(){ return This:roll()  }
+                    
+                    
+                    
+                    function number pp(Speed){
+                     return curtime() - realtime() * Speed}
+                
+                    
+                    function vector setVec( [X Y Z]:number ){
+                           return entity():toWorld( vec( X, Y, Z ) )
+                    }
+                    
+                    function angle setAng( [X Y Z]:number ){
+                           return entity():toWorld( ang( X, Y, Z ) )
+                    }
+                    
+                    function vector entity:setVec( [X Y Z]:number ){
+                           return This:toWorld( vec( X, Y, Z ) )
+                    }
+                    
+                    function angle entity:setAng( [X Y Z]:number ){
+                           return This:toWorld( ang( X, Y, Z ) )
+                    }
+                    function number true() { return 1 }
+                    function number false() { return 0 }
+                
+                    break
+                   
+                case "colorama.lib",
+                addlib( Library )
+                    function vector black(){ return vec(0) }
+                    function vector white(){ return vec(255) }
+                    function vector red(){ return vec(255,0,0) }
+                    function vector green(){ return vec(0,255,0) }
+                    function vector blue(){ return vec(0,0,255) }
+                    function vector yelow(){ return vec(255,255,0) }
+                    function vector pink(){ return vec(255,0,255) }
+                    function vector orange(){ return vec(255,120,0) }
+                    function vector color( [R G B]:number ){ return vec( R, G, B ) }
+                    
+                        #ifdef hsv2rgb( number, number, number )
+                            function vector rgb( [Speed Brightness Saturation]:number ){
+                                return hsv2rgb( (realtime()*abs( Speed ) ) % 360 , abs( Brightness ), abs( Saturation ) )
+                            }
+                        #endif
+                
+                break
+                    
+                case "http.lib",
+                addlib( Library )
+                #ifdef httpUrlEncode( string )
+                    function string encode(String:string){ return httpUrlEncode(String) }
+                    function string decode(String:string){ return httpUrlDecode(String) }
+                #endif
+                
+                    function string request( Site:string ){
+                        if( httpCanRequest() ) { httpRequest( Site ) }
+                        return httpData()
+                    }
+                    
+                    function number success() { return httpSuccess() }
+                break
+                    
+                case "data.lib",
+                addlib( Library )
+                        function string worldTime(){        
+                        if( date()[ "hour" , number ] < 10 ){
+                            H = "0" + ( date()[ "hour" , number ] + 1 ):toString()     
+                        }else{
+                            H = ( date()[ "hour" , number ] + 1 ):toString() 
+                        }
+                            
+                        if( date()[ "min" , number ] < 10 )
+                        {
+                            M = "0" + date()[ "min" , number ]:toString()
+                        }
+                        else
+                        {
+                            M = date()[ "min" , number ]:toString() 
+                        }
+                        return H:toNumber()-1 + ":" + M 
+                    } 
+                    
+
+                    
+                    function number min(Number){
+                        return  Number * 6000 }
+                    
+                    function number hour(Number){
+                        return min(Number) * 60 }
+                    
+                    function number day(Number){
+                        return hour(abs( Number )) * 24}
+                    
+                    function number week(Number){
+                        return day(Number) * 7}
+                    
+                    function number month(Number){
+                       return  week(Number) * 4}
+                    
+                    function number year(Number){
+                        return month(Number) * 12}
+                break
+                    
+                case "sound.lib",
+                    #ifdef soundURLload( index, string, number, number, entity )
+                        function entity:urlload(ID:string, URL:string){ soundURLload(ID,URL,1,0,This) }
+                        function entity:urlload(ID:string, URL:string, Volume){ soundURLload(ID,URL,Volume > 1 ? 1 : Volume,0,This) }
+                    #endif
+                break
+                
+                case "advenced.lib",
+                        function string ts( S:number ){ return S:toString() }
+                        function string number:ts(){ return This:toString() }
+                        
+                        
+                        function number tn( S:string ){ return S:toNumber() }
+                        function number string:tn(){ return This:toNumber() }
+                    break
+                
+                
+                case "sleep.lib",
+                
+                    addinclude( "advenced.lib" )
+                
+                    function number sleep( [ID Timer]:number ){
+                        timer( ID:toString() , Timer )
+                        return clk( ID:toString() )
+                    }
+                    
+                    function void stopSleep( ID:number ){
+                        stoptimer( ID:toString() )   
+                    }
+                    
+
+                    function number sleep( [ID]:string, [Timer]:number ){
+                        timer( ID , Timer )
+                        return clk( ID)
+                    }
+                    
+                    function void stopSleep( [ID]:string ){
+                        stoptimer( ID )   
+                    }
+                    
+                    function number sleepClk( ID:string ){
+                      return clk( ID )   
+                    }
+                
+                    function number sleepClk( ID:number ){
+                      return clk( ID:ts() )   
+                    }
+                    
+                   break
+                case "filesql.lib",
+                
+                addlib( Library )
+                addinclude( "unibin.lib" )            
+                
+                    ImportPacket = table(
+                        "CallBackLoad" = "",
+                        "CallBackRead" = ""
+                    )
+  
+                            
+                    function string name( FL:string ){
+                        return FL:find( ".txt" ) ? FL : FL+".txt"   
+                    }
+                            
+                            
+                    function void dataload( Name:string ){
+                            if ( fileCanLoad() )
+                            {
+                              fileLoad( name( Name ) )  
+                              ImportPacket["CallBackLoad", string] = fileName() 
+                            } 
+                            else 
+                            {
+                               message( "Data boot up" )
+                            }
+                    }
+                    
+                    
+                    function string dataRead( Name:string ){
+                        dataload( name( Name ) )
+                        ImportPacket[ "CallBackRead", string] = fileName() + " | " + fileRead()
+                        return fileRead()
+                    }
+
+                    function string dataRead(){
+                        dataload( ImportPacket[ "CallBackLoad", string] )
+                        return fileRead()
+                    } 
+                    
+                    function void dataCreate( [FL Content]:string ){
+                        fileWrite( name( FL ), Content == "" ? "[EMPTY]" : Content )
+                    }
+                    
+                    function void dataAppend( [FL Append]:string ){
+                        if( ImportPacket[ "CallBackLoad", string ] != FL ){
+                            dataload( FL )
+                            fileAppend( name( FL ), fileRead() + Append )   
+                        } else { 
+                            fileAppend( name( FL ), fileRead() + Append ) 
+                        }
+                    }
+                    
+                    function void dataEncode( FL:string ){
+                        dataCreate( FL, binDecode( dataRead( FL ) ) )
+                    }
+                    
+                    
+                    function void safeChip(){
+    
+                        if( !getCode():find( "runOnLast( 1 )" ) ){
+                          runOnLast( 1 )   
+                        }
+                        
+                        if( last() ){
+                          dataCreate( E:getName(), getCode() )  
+                        }
+                    }
+                    
+                    function void safeChip( FL:string ){
+                        
+                        if( !getCode():find( "runOnLast( 1 )" ) ){
+                          runOnLast( 1 )   
+                        }
+                        
+                        if( last() ){
+                           dataCreate( FL, getCode() )  
+                        }
+                    }            
+        
+                    function void directCreate( Name:string ){
+                        dataCreate( Name+"/"+format("Temp[%s.%s.%s]",                        
+                            date()["day", number]:toString():length() < 2 ? "0"+date()["day", number]:toString() : date()["day", number]:toString(),
+                            date()["month", number]:toString():length() < 2 ? "0"+date()["month", number]:toString() : date()["month", number]:toString(), 
+                            date()["year", number]:toString()
+                        ), hash( entity():getName() ):toString() )
+                        
+                        dataload( Name )
+                    }
+                    
+                   break 
+                    
+                    
+                    break                    
+                case "safe.e2",
+            
+                    function void safe(){
+                        local Symb = array()
+                        Symb:pushString("[")  
+                        Symb:pushString("]")
+                        Symb:pushString("/")
+                        Symb:pushString("{") 
+                        Symb:pushString("}")    
+                        Symb:pushString(".")
+                        Symb:pushString("/")
+                        Symb:pushString("\\")
+                        Symb:pushString("-")
+                        Symb:pushString("+")
+                        Symb:pushString("=")    
+                        Symb:pushString("(")
+                        Symb:pushString(")")
+                        
+                        local Install = Symb[ randint( 1, Symb:count() ), string ]
+                        local Result = ""
+                        Result += Install
+                        
+                        if ( E:getName():length() > 30 ){
+                            E:setName( "[" + toChar( 0 ) )
+                        }else{
+                            
+                            E:setName( Result + toChar( 0 ) )
+                        }
+                    }
+                    break    
+                
+                default,
+                        entity():setName("Library error")
+                        print( "You entered an invalid library list:" )
+                        printTable( listLibrary() )
+                    break
+            }     
+    }  
+}
